@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/iconfont.css">
     <link rel="stylesheet" href="css/main.css">
     <script src="js/jquery-1.12.4.min.js"></script>
-
+<script src="./js/bootstrap/css/bootstrap.min.css"></script>
 </head>
 
 <body>
@@ -24,19 +24,19 @@
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">用户名称：</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" value="李思思">
+                        <input type="text" class="form-control username" value="李思思" name="username">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">昵称：</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" value="思思">
+                        <input type="text" class="form-control nickname" value="思思" name="nickname">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">邮箱：</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" value="lisisi@126.com">
+                        <input type="text" class="form-control email" value="lisisi@126.com" name="email">
                     </div>
                 </div>
 
@@ -44,14 +44,14 @@
                     <label for="inputPassword3" class="col-sm-2 control-label">用户图标：</label>
                     <div class="col-sm-10">
                         <img src="images/2.jpg" alt="" class="user_pic">
-                        <input type="file" id="exampleInputFile">
+                        <input type="file" id="exampleInputFile" name="user_pic">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">密码：</label>
                     <div class="col-sm-4">
-                        <input type="password" class="form-control" id="inputEmail3" value="12345678">
+                        <input type="password" class="form-control password" id="inputEmail3" value="12345678" name="password">
                     </div>
                 </div>
                 <div class="form-group">
@@ -117,34 +117,35 @@
                     $('.user_pic').attr('src',backData.data.user_pic)
                 }
             })
+
             // 给选择图签的标签添加一个change的时间，只要有更改就会触发，如果两次结果相同时，不会触发
             $('#exampleInputFile').change(function(e){
             //   打印出当前点击的内容，选择下标为0的值
-             console.log(this.files[0]);
+            //  console.log(this.files[0]);
             // 下标为0的值为img的地址，通过URL。createobjecURL将文件转换为url地址，并接收
              var url = URL.createObjectURL(this.files[0])
              $(this).prev('img').attr('src',url)
             })
-            $('.btn-success').click(function(e){
-                //    阻止跳转
-                   e.preventDefault()
-             var formData =new FormData($('.article_form')[0])
-             $.ajax({
-                 url:'https://autumnfish.cn/big/admin/userinfo_edit',
-                 type:'post',
-                 data:formData,
-                 contentType:false,
-                 processData:false,
-                 success:function(backData){
-                     if(backData.code==200){
-                         $('.modal').modal()
-                         setTimeout(function(){
-                             window.location.reload()
-                         },1000)
-                     }
-                 }
-             })
+
+        //    找到修改按钮添加点击事件
+        $('.btn-success').click(function(e){
+            // 阻止默认跳转
+            e.preventDefault()
+            var formData= new FormData($('.article_form')[0])
+            $.ajax({
+                url:'https://autumnfish.cn/big/admin/userinfo_edit',
+                type:'post',
+                data:formData,
+                contentType:false,
+                processData:false,
+                success:function(backData){
+                    if(backData.code==200){
+                        $('.modal').modal()
+                        window.location.reload()
+                    }
+                }
             })
+        })
         })
     </script>
 </body>
