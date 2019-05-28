@@ -73,7 +73,7 @@
                 <tfoot>
                     <tr>
                         <td colspan="3" class="text-center">
-                            <a href="#" class="btn btn-success" data-toggle="modal" data-target="#addModal">新增分类</a>
+                            <a href="#" class="btn btn-success btn-add" data-toggle="modal" data-target="#addModal">新增分类</a>
                         </td>
                     </tr>
                 </tfoot>
@@ -247,6 +247,10 @@
           $('#model_add')
             .text('新增')
             .removeClass('btn-success')
+
+
+            // 清空新增框中的内容
+            $('form input').val('')
         })
 
         // 弹出编辑框
